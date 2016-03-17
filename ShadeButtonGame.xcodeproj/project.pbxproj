@@ -1,0 +1,366 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C86BC4581C921FAE007F6A8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC4571C921FAE007F6A8A /* AppDelegate.swift */; };
+		C86BC45A1C921FAE007F6A8A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4591C921FAE007F6A8A /* GameScene.sks */; };
+		C86BC45C1C921FAE007F6A8A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC45B1C921FAE007F6A8A /* GameScene.swift */; };
+		C86BC45E1C921FAE007F6A8A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC45D1C921FAE007F6A8A /* GameViewController.swift */; };
+		C86BC4611C921FAE007F6A8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C86BC45F1C921FAE007F6A8A /* Main.storyboard */; };
+		C86BC4631C921FAE007F6A8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4621C921FAE007F6A8A /* Assets.xcassets */; };
+		C86BC4661C921FAE007F6A8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4641C921FAE007F6A8A /* LaunchScreen.storyboard */; };
+		C86BC46E1C921FCD007F6A8A /* ShadeButtonGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC46D1C921FCD007F6A8A /* ShadeButtonGame.swift */; };
+		C86BC4701C9222F8007F6A8A /* ShadeGem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC46F1C9222F8007F6A8A /* ShadeGem.swift */; };
+		C86BC4721C9316F4007F6A8A /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC4711C9316F4007F6A8A /* MenuScene.swift */; };
+		C86BC4741C931B96007F6A8A /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4731C931B96007F6A8A /* MenuScene.sks */; };
+		C86BC4771C93252A007F6A8A /* ShadeButtonScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC4761C93252A007F6A8A /* ShadeButtonScene.swift */; };
+		C86BC4791C93254D007F6A8A /* ShadeButton.sks in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4781C93254D007F6A8A /* ShadeButton.sks */; };
+		C86BC47B1C93315A007F6A8A /* shade.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C86BC47A1C93315A007F6A8A /* shade.mp3 */; };
+		C86BC4841C937147007F6A8A /* levels.txt in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4831C937147007F6A8A /* levels.txt */; };
+		C86BC4861C99B744007F6A8A /* LevelSelectScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC4851C99B744007F6A8A /* LevelSelectScene.swift */; };
+		C86BC4881C99C5DC007F6A8A /* LevelSelectScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4871C99C5DC007F6A8A /* LevelSelectScene.sks */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C86BC4541C921FAE007F6A8A /* ShadeButtonGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShadeButtonGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C86BC4571C921FAE007F6A8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C86BC4591C921FAE007F6A8A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		C86BC45B1C921FAE007F6A8A /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		C86BC45D1C921FAE007F6A8A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		C86BC4601C921FAE007F6A8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C86BC4621C921FAE007F6A8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C86BC4651C921FAE007F6A8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C86BC4671C921FAE007F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C86BC46D1C921FCD007F6A8A /* ShadeButtonGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadeButtonGame.swift; sourceTree = SOURCE_ROOT; };
+		C86BC46F1C9222F8007F6A8A /* ShadeGem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadeGem.swift; sourceTree = "<group>"; };
+		C86BC4711C9316F4007F6A8A /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		C86BC4731C931B96007F6A8A /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		C86BC4761C93252A007F6A8A /* ShadeButtonScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadeButtonScene.swift; sourceTree = "<group>"; };
+		C86BC4781C93254D007F6A8A /* ShadeButton.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShadeButton.sks; sourceTree = "<group>"; };
+		C86BC47A1C93315A007F6A8A /* shade.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shade.mp3; sourceTree = "<group>"; };
+		C86BC4831C937147007F6A8A /* levels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = levels.txt; sourceTree = "<group>"; };
+		C86BC4851C99B744007F6A8A /* LevelSelectScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectScene.swift; sourceTree = "<group>"; };
+		C86BC4871C99C5DC007F6A8A /* LevelSelectScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelSelectScene.sks; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C86BC4511C921FAE007F6A8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C86BC44B1C921FAD007F6A8A = {
+			isa = PBXGroup;
+			children = (
+				C86BC4561C921FAE007F6A8A /* ShadeButtonGame */,
+				C86BC4551C921FAE007F6A8A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C86BC4551C921FAE007F6A8A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C86BC4541C921FAE007F6A8A /* ShadeButtonGame.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C86BC4561C921FAE007F6A8A /* ShadeButtonGame */ = {
+			isa = PBXGroup;
+			children = (
+				C86BC4571C921FAE007F6A8A /* AppDelegate.swift */,
+				C86BC4751C9324F5007F6A8A /* Scenes */,
+				C86BC46F1C9222F8007F6A8A /* ShadeGem.swift */,
+				C86BC45D1C921FAE007F6A8A /* GameViewController.swift */,
+				C86BC47E1C935EF8007F6A8A /* Resources */,
+				C86BC4711C9316F4007F6A8A /* MenuScene.swift */,
+				C86BC4851C99B744007F6A8A /* LevelSelectScene.swift */,
+				C86BC4761C93252A007F6A8A /* ShadeButtonScene.swift */,
+				C86BC45B1C921FAE007F6A8A /* GameScene.swift */,
+				C86BC46D1C921FCD007F6A8A /* ShadeButtonGame.swift */,
+				C86BC45F1C921FAE007F6A8A /* Main.storyboard */,
+				C86BC4621C921FAE007F6A8A /* Assets.xcassets */,
+				C86BC4641C921FAE007F6A8A /* LaunchScreen.storyboard */,
+				C86BC4671C921FAE007F6A8A /* Info.plist */,
+			);
+			path = ShadeButtonGame;
+			sourceTree = "<group>";
+		};
+		C86BC4751C9324F5007F6A8A /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				C86BC4591C921FAE007F6A8A /* GameScene.sks */,
+				C86BC4731C931B96007F6A8A /* MenuScene.sks */,
+				C86BC4781C93254D007F6A8A /* ShadeButton.sks */,
+				C86BC4871C99C5DC007F6A8A /* LevelSelectScene.sks */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		C86BC47E1C935EF8007F6A8A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C86BC4831C937147007F6A8A /* levels.txt */,
+				C86BC47A1C93315A007F6A8A /* shade.mp3 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C86BC4531C921FAE007F6A8A /* ShadeButtonGame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C86BC46A1C921FAE007F6A8A /* Build configuration list for PBXNativeTarget "ShadeButtonGame" */;
+			buildPhases = (
+				C86BC4501C921FAE007F6A8A /* Sources */,
+				C86BC4511C921FAE007F6A8A /* Frameworks */,
+				C86BC4521C921FAE007F6A8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShadeButtonGame;
+			productName = ShadeButtonGame;
+			productReference = C86BC4541C921FAE007F6A8A /* ShadeButtonGame.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C86BC44C1C921FAD007F6A8A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Jacob Wittenauer";
+				TargetAttributes = {
+					C86BC4531C921FAE007F6A8A = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = SMR4NAHB89;
+					};
+				};
+			};
+			buildConfigurationList = C86BC44F1C921FAD007F6A8A /* Build configuration list for PBXProject "ShadeButtonGame" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C86BC44B1C921FAD007F6A8A;
+			productRefGroup = C86BC4551C921FAE007F6A8A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C86BC4531C921FAE007F6A8A /* ShadeButtonGame */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C86BC4521C921FAE007F6A8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C86BC47B1C93315A007F6A8A /* shade.mp3 in Resources */,
+				C86BC45A1C921FAE007F6A8A /* GameScene.sks in Resources */,
+				C86BC4661C921FAE007F6A8A /* LaunchScreen.storyboard in Resources */,
+				C86BC4881C99C5DC007F6A8A /* LevelSelectScene.sks in Resources */,
+				C86BC4841C937147007F6A8A /* levels.txt in Resources */,
+				C86BC4631C921FAE007F6A8A /* Assets.xcassets in Resources */,
+				C86BC4791C93254D007F6A8A /* ShadeButton.sks in Resources */,
+				C86BC4741C931B96007F6A8A /* MenuScene.sks in Resources */,
+				C86BC4611C921FAE007F6A8A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C86BC4501C921FAE007F6A8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C86BC4701C9222F8007F6A8A /* ShadeGem.swift in Sources */,
+				C86BC45C1C921FAE007F6A8A /* GameScene.swift in Sources */,
+				C86BC4771C93252A007F6A8A /* ShadeButtonScene.swift in Sources */,
+				C86BC45E1C921FAE007F6A8A /* GameViewController.swift in Sources */,
+				C86BC4721C9316F4007F6A8A /* MenuScene.swift in Sources */,
+				C86BC4581C921FAE007F6A8A /* AppDelegate.swift in Sources */,
+				C86BC46E1C921FCD007F6A8A /* ShadeButtonGame.swift in Sources */,
+				C86BC4861C99B744007F6A8A /* LevelSelectScene.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C86BC45F1C921FAE007F6A8A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C86BC4601C921FAE007F6A8A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C86BC4641C921FAE007F6A8A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C86BC4651C921FAE007F6A8A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C86BC4681C921FAE007F6A8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C86BC4691C921FAE007F6A8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C86BC46B1C921FAE007F6A8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = ShadeButtonGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wittenauer.ShadeButtonGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C86BC46C1C921FAE007F6A8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = ShadeButtonGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wittenauer.ShadeButtonGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C86BC44F1C921FAD007F6A8A /* Build configuration list for PBXProject "ShadeButtonGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C86BC4681C921FAE007F6A8A /* Debug */,
+				C86BC4691C921FAE007F6A8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C86BC46A1C921FAE007F6A8A /* Build configuration list for PBXNativeTarget "ShadeButtonGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C86BC46B1C921FAE007F6A8A /* Debug */,
+				C86BC46C1C921FAE007F6A8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C86BC44C1C921FAD007F6A8A /* Project object */;
+}
