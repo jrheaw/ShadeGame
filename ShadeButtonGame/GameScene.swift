@@ -15,6 +15,10 @@ class GameScene: SKScene {
     var levelSelectLabel: SKLabelNode?
     var levelLabel: SKLabelNode!
     
+    var howToNode: SKSpriteNode?
+    var info: GameInfoLabel?
+    var title: SKLabelNode?
+    
     var shadeGems: [[ShadeGem?]] = []
     
     var shadeButtonGame: ShadeButtonGame?
@@ -22,6 +26,7 @@ class GameScene: SKScene {
     var gameStarted = false
     var levelWon = false
     var level: Int = 1
+    var howToPresented = false
     
     override func didMoveToView(view: SKView) {
         if !gameStarted {
@@ -54,9 +59,23 @@ class GameScene: SKScene {
             }
         }
         gameStarted = true
+        if(level == 1) {
+            howToPresented = true
+            presentHowTo()
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if(howToPresented) {
+            info?.removeFromSuperview()
+            howToNode?.removeFromParent()
+            title?.removeFromParent()
+            howToPresented = false
+            return
+        }
+        if levelWon {
+            presentNextLevel()
+        }
         if let touch = touches.first {
             let location = touch.locationInNode(self)
             let nodes = nodesAtPoint(location)
@@ -64,14 +83,11 @@ class GameScene: SKScene {
             for node in nodes {
                 if node.name == "shadeGem" && !levelWon {
                     let touchedGem = node.parent as! ShadeGem
-                    print("Gem touched at \(touchedGem.row!) \(touchedGem.row!)")
                     shadeButtonGame!.buttonPressedAtLocation(row: touchedGem.row!, col: touchedGem.column!)
                     refreshNodes()
                     checkForWin()
                 } else if node.name == "back" {
                     presentMenuScene()
-                } else if node.name == "next" {
-                    presentNextLevel()
                 }
             }
             
@@ -89,7 +105,9 @@ class GameScene: SKScene {
     
     func checkForWin() {
         if shadeButtonGame!.hasWon() {
-            NSUserDefaults.standardUserDefaults().setInteger(level, forKey: "HighestLevelWon")
+            if(NSUserDefaults.standardUserDefaults().integerForKey("HighestLevelWon") < level) {
+                NSUserDefaults.standardUserDefaults().setInteger(level, forKey: "HighestLevelWon")
+            }
             levelWon = true
             let youWinLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
             youWinLabel.fontSize = 52
@@ -104,7 +122,7 @@ class GameScene: SKScene {
             let nextLevel = SKLabelNode(fontNamed: "Zapfino")
             nextLevel.fontSize = 19
             nextLevel.fontColor = UIColor.blackColor()
-            nextLevel.text = "Touch Me for Next Level"
+            nextLevel.text = "Touch for Next Level"
             nextLevel.name = "next"
             nextLevel.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMinY(self.scene!.frame) - nextLevel.frame.height)
             nextLevel.zPosition = 100
@@ -168,9 +186,48 @@ class GameScene: SKScene {
         let transition = SKTransition.fadeWithColor(UIColor.purpleColor(), duration: 1.0)
         self.view?.presentScene(gameScene, transition: transition)
     }
+    
+    func presentHowTo() {
+        howToNode = SKSpriteNode(color:SKColor.whiteColor(), size: CGSize(width: self.scene!.frame.width/1.4, height: self.scene!.frame.height/1.8))
+        howToNode!.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMidY(self.scene!.frame))
+        howToNode!.zPosition = 200
+        
+        
+        title = SKLabelNode(fontNamed: "Marker Felt Wide")
+        title!.text = "How To Play"
+        title!.fontColor = SKColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+        title!.fontSize = 24
+        title!.position = CGPoint(x: CGRectGetMidX(howToNode!.frame), y: CGRectGetMaxY(howToNode!.frame) - title!.frame.height * 1.8)
+        print(title!.position)
+        title!.zPosition = 201
+        self.addChild(title!)
+        
+        info = GameInfoLabel(frame: howToNode!.frame)
+        //info.font = "Zapfino"
+        info!.text = "\nTouch to change the color of a square. Turn off (or \"shade\") all dark gray squares in order to complete a level. A square needs to be shaded if it has a darkened border. Touching a yellow/gray square will turn its four adjacent squares gray/yellow."
+        info!.textAlignment = .Center
+        
+        info!.lineBreakMode = .ByWordWrapping
+        info!.numberOfLines = 12
+        info!.textColor = UIColor.blackColor()
+        //info!.center = CGPointMake(CGRectGetMidX(self.scene!.frame),CGRectGetMidY(self.scene!.frame))
+        info!.layer.borderColor = UIColor.purpleColor().CGColor
+        info!.layer.borderWidth = 3.0
+        
+        self.view?.addSubview(info!)
+        self.addChild(howToNode!)
+        
+    }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }
 
+}
+
+class GameInfoLabel : UILabel {
+    override func drawTextInRect(rect: CGRect) {
+        let insets = UIEdgeInsets.init(top: 0, left: 8, bottom: 0, right: 8)
+        super.drawTextInRect(UIEdgeInsetsInsetRect(rect, insets))
+    }
 }

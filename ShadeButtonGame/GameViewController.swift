@@ -8,8 +8,12 @@
 
 import UIKit
 import SpriteKit
+import iAd
 
-class GameViewController: UIViewController {
+
+class GameViewController: UIViewController, ADBannerViewDelegate {
+    
+    var bannerView: ADBannerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,16 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             skView.presentScene(scene)
         }
+        
+        bannerView = ADBannerView(adType: .Banner)
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        bannerView.delegate = self
+        bannerView.hidden = true
+        view.addSubview(bannerView)
+        
+        let viewsDictionary = ["bannerView": bannerView]
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[bannerView]|", options: [], metrics: nil, views: viewsDictionary))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[bannerView]|", options: [], metrics: nil, views: viewsDictionary))
     }
 
     override func shouldAutorotate() -> Bool {
@@ -35,11 +49,7 @@ class GameViewController: UIViewController {
     }
 
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
-        } else {
-            return .All
-        }
+        return .Portrait
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,5 +59,13 @@ class GameViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func bannerViewDidLoadAd(banner: ADBannerView!) {
+        bannerView.hidden = false
+    }
+    
+    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+        bannerView.hidden = true
     }
 }
