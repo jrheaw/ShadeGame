@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GameplayKit
 
 enum ButtonState: String {
     case GREY, YELLOW, DARKYELLOW, SHADE, DARKGREY
@@ -23,6 +24,9 @@ class ShadeButtonGame {
     
     var numColumns: Int?
     var numRows: Int?
+    
+    var numClicks = 0
+    var clicksToWin = 0
     
     init(level: Int) {
         loadLevel(level)
@@ -42,6 +46,8 @@ class ShadeButtonGame {
                     let gridSizes = getXYFromString(levelAndSize[1])
                     numColumns = gridSizes.row //in this case it's a count
                     numRows = gridSizes.column
+                    
+                    clicksToWin = Int(levelAndSize[2])!
                     
                     //load second text line of level which contains the solution
                     let solutionLine = lines[levelIndex + 1]
@@ -71,25 +77,35 @@ class ShadeButtonGame {
                         startingButtons.append(startButton)
                     }
                 } else {
-                    numColumns = 5
-                    numRows = 5
-                    for _ in 1...10 {
-                        solutionCoords.append((row: Int(arc4random_uniform(UInt32(5))), column: Int(arc4random_uniform(UInt32(5)))))
-                    }
-                    for _ in 1...10 {
-                        var startButton = StartButton()
-                        startButton.row = Int(arc4random_uniform(UInt32(5)))
-                        startButton.column = Int(arc4random_uniform(UInt32(5)))
-                        if solutionContains(solutionCoords, v: (startButton.row!, startButton.column!)) {
-                            startButton.state = .DARKYELLOW
-                        } else {
-                            startButton.state = .YELLOW
-                        }
-                        startingButtons.append(startButton)
-                    }
+                    setUpRandom(level)
                 }
             }
             setUpGameGrid()
+        }
+    }
+    
+    func setUpRandom(randomLevel: Int) {
+        let isEasy = randomLevel > 100 ? false : true
+        
+        numColumns = 5
+        numRows = 5
+        
+        let numSolutionButtons = isEasy ? 14 : 25
+        let numStartingShaded = isEasy ? 14 : 25
+        
+        for _ in 1...numSolutionButtons {
+            solutionCoords.append((row: GKRandomSource.sharedRandom().nextIntWithUpperBound(5), column: GKRandomSource.sharedRandom().nextIntWithUpperBound(5)))
+        }
+        for _ in 1...numStartingShaded {
+            var startButton = StartButton()
+            startButton.row = GKRandomSource.sharedRandom().nextIntWithUpperBound(5)
+            startButton.column = GKRandomSource.sharedRandom().nextIntWithUpperBound(5)
+            if solutionContains(solutionCoords, v: (startButton.row!, startButton.column!)) {
+                startButton.state = .DARKYELLOW
+            } else {
+                startButton.state = .YELLOW
+            }
+            startingButtons.append(startButton)
         }
     }
     
@@ -130,8 +146,12 @@ class ShadeButtonGame {
         return true
     }
     
+    func beatLevel() -> Bool {
+        return clicksToWin == 0 || numClicks <= clicksToWin;
+    }
+    
     func buttonPressedAtLocation(row row: Int, col: Int) {
-        print("buttonPressedAtLocation \(row) \(col)")
+        numClicks += 1
         if isInGrid(row, col) {
             switch gameGrid[row][col] {
             case .DARKGREY:

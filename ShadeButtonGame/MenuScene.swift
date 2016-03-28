@@ -71,10 +71,6 @@ class MenuScene: SKScene {
         }
     }
     
-    func presentPickLevel() {
-        
-    }
-    
     func presentLevelSelectScene() {
         let transition = SKTransition.moveInWithDirection(.Right, duration: 0.6)
         self.view?.presentScene(levelSelectScene, transition: transition)

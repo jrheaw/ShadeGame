@@ -19,6 +19,8 @@ class GameScene: SKScene {
     var info: GameInfoLabel?
     var title: SKLabelNode?
     
+    var score: SKLabelNode?
+    
     var shadeGems: [[ShadeGem?]] = []
     
     var shadeButtonGame: ShadeButtonGame?
@@ -27,14 +29,19 @@ class GameScene: SKScene {
     var levelWon = false
     var level: Int = 1
     var howToPresented = false
+    var soundOff = false
     
     override func didMoveToView(view: SKView) {
+        soundOff = NSUserDefaults.standardUserDefaults().boolForKey("soundOff")
         if !gameStarted {
             self.scene!.backgroundColor = UIColor(red: 234.0/255.0, green: 183.0/255.0, blue: 233.0/255.0, alpha: 1.0)
             createAndPlaceGoBackToMenu()
             createAndPlaceLevelLabel()
+            createAndPlaceRestartLevel()
             
             shadeButtonGame = ShadeButtonGame(level: level)
+            
+
             
             let shadeGemRow = [ShadeGem?] (count: 5, repeatedValue: nil)
             shadeGems = [[ShadeGem?]] (count: 5, repeatedValue: shadeGemRow)
@@ -57,6 +64,13 @@ class GameScene: SKScene {
                     addChild(gem)
                 }
             }
+            
+            score = SKLabelNode(fontNamed: "Marker Felt Wide")
+            score!.fontSize = 28
+            score!.text = "\(shadeButtonGame!.numClicks) (\(shadeButtonGame!.clicksToWin))"
+            score?.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMinY(self.scene!.frame) + (score?.frame.height)! * 2.8)
+            
+            addChild(score!)
         }
         gameStarted = true
         if(level == 1) {
@@ -74,7 +88,11 @@ class GameScene: SKScene {
             return
         }
         if levelWon {
-            presentNextLevel()
+            if(shadeButtonGame!.beatLevel()) {
+                presentNextLevel()
+            } else {
+                presentLevel(level)
+            }
         }
         if let touch = touches.first {
             let location = touch.locationInNode(self)
@@ -84,10 +102,15 @@ class GameScene: SKScene {
                 if node.name == "shadeGem" && !levelWon {
                     let touchedGem = node.parent as! ShadeGem
                     shadeButtonGame!.buttonPressedAtLocation(row: touchedGem.row!, col: touchedGem.column!)
+                    if(!soundOff) {
+                        runAction(SKAction.playSoundFileNamed("switch\(touchedGem.shadeSound!).wav", waitForCompletion:false))
+                    }
                     refreshNodes()
                     checkForWin()
                 } else if node.name == "back" {
                     presentMenuScene()
+                } else if node.name == "restart" {
+                    presentLevel(level)
                 }
             }
             
@@ -101,28 +124,30 @@ class GameScene: SKScene {
                 shadeGems[i][j]?.changeState(shadeButtonGame!.getButtonStateAtPosition(i,j))
             }
         }
+        score!.text = "\(shadeButtonGame!.numClicks) (\(shadeButtonGame!.clicksToWin))"
     }
     
     func checkForWin() {
         if shadeButtonGame!.hasWon() {
-            if(NSUserDefaults.standardUserDefaults().integerForKey("HighestLevelWon") < level) {
+            if(NSUserDefaults.standardUserDefaults().integerForKey("HighestLevelWon") < level && level <= 10) {
                 NSUserDefaults.standardUserDefaults().setInteger(level, forKey: "HighestLevelWon")
             }
             levelWon = true
             let youWinLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
             youWinLabel.fontSize = 52
             youWinLabel.fontColor = UIColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-            youWinLabel.text = "YAS KWEEN"
+            youWinLabel.text = shadeButtonGame!.beatLevel() ? "YAS!" : "Almost!"
             youWinLabel.name = "win"
             youWinLabel.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMaxY(self.scene!.frame) + youWinLabel.frame.height)
             youWinLabel.zPosition = 100
             youWinLabel.alpha = 0
             addChild(youWinLabel)
             
+            
             let nextLevel = SKLabelNode(fontNamed: "Zapfino")
             nextLevel.fontSize = 19
             nextLevel.fontColor = UIColor.blackColor()
-            nextLevel.text = "Touch for Next Level"
+            nextLevel.text = shadeButtonGame!.beatLevel() ? "Touch for Next Level" : "Touch to Retry Level"
             nextLevel.name = "next"
             nextLevel.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMinY(self.scene!.frame) - nextLevel.frame.height)
             nextLevel.zPosition = 100
@@ -132,9 +157,13 @@ class GameScene: SKScene {
             let fadeInAction = SKAction.fadeAlphaTo(1, duration: 1)
             let bringDownActionYouWin = SKAction.moveToY(CGRectGetMidY(self.scene!.frame), duration: 1)
             let bringUpActionNextLevel = SKAction.moveToY(CGRectGetMinY(self.scene!.frame) + nextLevel.frame.height, duration: 1)
-            youWinLabel.runAction(SKAction.group([fadeInAction, bringDownActionYouWin]))
             nextLevel.runAction(SKAction.group([fadeInAction, bringUpActionNextLevel]))
-            runAction(SKAction.playSoundFileNamed("shade.mp3", waitForCompletion:false))
+            youWinLabel.runAction(SKAction.group([fadeInAction, bringDownActionYouWin]))
+            if(!soundOff) {
+                runAction(SKAction.playSoundFileNamed("shade.mp3", waitForCompletion:false))
+            }
+
+
         }
     }
     
@@ -148,12 +177,22 @@ class GameScene: SKScene {
         addChild(self.levelLabel!)
     }
     
+    func createAndPlaceRestartLevel() {
+        self.levelLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
+        self.levelLabel!.fontSize = 15
+        self.levelLabel!.fontColor = UIColor.grayColor()
+        self.levelLabel!.text = "Restart Level"
+        self.levelLabel!.name = "restart"
+        self.levelLabel!.position = CGPoint(x: CGRectGetMaxX(self.scene!.frame) - self.levelLabel!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - self.levelLabel!.frame.height)
+        addChild(self.levelLabel!)
+    }
+    
     func createAndPlaceLevelLabel() {
         levelLabel = SKLabelNode(fontNamed: "Zapfino")
         var levelText = "\(level)"
         if(level <= 1) {
             levelText = "Basic"
-        } else if (level >= 6) {
+        } else if (level >= 11) {
             levelText = "So Random"
         }
         levelLabel.text = "Level: " + levelText
@@ -179,11 +218,21 @@ class GameScene: SKScene {
     }
     
     func presentNextLevel() {
+        if(level > 100) {
+            presentLevel(101) //100 = random easy, 101 = random hard
+        } else if (level + 1 > 10) {
+            presentLevel(100)
+        } else {
+            presentLevel(level+1)
+        }
+    }
+    
+    func presentLevel(level: Int) {
         let gameScene = GameScene()
-        gameScene.level = ++level
+        gameScene.level = level
         gameScene.scaleMode = .AspectFill
         gameScene.size = self.view!.bounds.size
-        let transition = SKTransition.fadeWithColor(UIColor.purpleColor(), duration: 1.0)
+        let transition = SKTransition.fadeWithColor(UIColor.purpleColor(), duration: 0.6)
         self.view?.presentScene(gameScene, transition: transition)
     }
     
@@ -202,9 +251,11 @@ class GameScene: SKScene {
         title!.zPosition = 201
         self.addChild(title!)
         
+        
+        
         info = GameInfoLabel(frame: howToNode!.frame)
         //info.font = "Zapfino"
-        info!.text = "\nTouch to change the color of a square. Turn off (or \"shade\") all dark gray squares in order to complete a level. A square needs to be shaded if it has a darkened border. Touching a yellow/gray square will turn its four adjacent squares gray/yellow."
+        info!.text = "\nTouch a square to turn off (or \"shade\") the light in all dark gray squares. A square needs to be shaded if it has a darkened border. Touching a yellow/gray square will turn its four adjacent squares gray/yellow. Complete the level in the specified number of touches to move on!"
         info!.textAlignment = .Center
         
         info!.lineBreakMode = .ByWordWrapping
@@ -213,6 +264,11 @@ class GameScene: SKScene {
         //info!.center = CGPointMake(CGRectGetMidX(self.scene!.frame),CGRectGetMidY(self.scene!.frame))
         info!.layer.borderColor = UIColor.purpleColor().CGColor
         info!.layer.borderWidth = 3.0
+        
+        if CGRectIntersectsRect(info!.frame, title!.frame) {
+            title!.fontSize = 20
+            title!.position = CGPoint(x: CGRectGetMidX(howToNode!.frame), y: CGRectGetMaxY(howToNode!.frame) - title!.frame.height * 1.4)
+        }
         
         self.view?.addSubview(info!)
         self.addChild(howToNode!)
