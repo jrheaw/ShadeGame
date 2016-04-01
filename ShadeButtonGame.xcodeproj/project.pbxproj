@@ -27,6 +27,7 @@
 		C86BC4841C937147007F6A8A /* levels.txt in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4831C937147007F6A8A /* levels.txt */; };
 		C86BC4861C99B744007F6A8A /* LevelSelectScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86BC4851C99B744007F6A8A /* LevelSelectScene.swift */; };
 		C86BC4881C99C5DC007F6A8A /* LevelSelectScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C86BC4871C99C5DC007F6A8A /* LevelSelectScene.sks */; };
+		C890AF041CAEC5440034E02C /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C890AF031CAEC5440034E02C /* Extentions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		C86BC4831C937147007F6A8A /* levels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = levels.txt; sourceTree = "<group>"; };
 		C86BC4851C99B744007F6A8A /* LevelSelectScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectScene.swift; sourceTree = "<group>"; };
 		C86BC4871C99C5DC007F6A8A /* LevelSelectScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelSelectScene.sks; sourceTree = "<group>"; };
+		C890AF031CAEC5440034E02C /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				C86BC4761C93252A007F6A8A /* ShadeButtonScene.swift */,
 				C86BC45B1C921FAE007F6A8A /* GameScene.swift */,
 				C86BC46D1C921FCD007F6A8A /* ShadeButtonGame.swift */,
+				C890AF031CAEC5440034E02C /* Extentions.swift */,
 				C86BC45F1C921FAE007F6A8A /* Main.storyboard */,
 				C86BC4621C921FAE007F6A8A /* Assets.xcassets */,
 				C86BC4641C921FAE007F6A8A /* LaunchScreen.storyboard */,
@@ -158,6 +161,11 @@
 					C86BC4531C921FAE007F6A8A = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = SMR4NAHB89;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -214,6 +222,7 @@
 				C86BC4581C921FAE007F6A8A /* AppDelegate.swift in Sources */,
 				C86BC46E1C921FCD007F6A8A /* ShadeButtonGame.swift in Sources */,
 				C86BC4861C99B744007F6A8A /* LevelSelectScene.swift in Sources */,
+				C890AF041CAEC5440034E02C /* Extentions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -314,7 +323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -326,13 +335,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = ShadeButtonGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wittenauer.ShadeButtonGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "82cc204f-768a-4332-b0f4-17bd28e6cd38";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -341,13 +351,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = ShadeButtonGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wittenauer.ShadeButtonGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "82cc204f-768a-4332-b0f4-17bd28e6cd38";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

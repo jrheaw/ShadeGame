@@ -12,43 +12,53 @@ class MenuScene: SKScene {
 
     var shadeScene = ShadeButtonScene()
     var levelSelectScene = LevelSelectScene()
-    
-    var titleLabel: SKLabelNode?
+
     var newGameLabel: SKLabelNode?
     var throwShadeLabel: SKLabelNode?
+    var hideAdsLabel: SKLabelNode?
+    
+    let menuFontString = "Futura-CondensedMedium"
+    let menuFontColorString = "#FFC0E4FF"
+    let menuFontSize: CGFloat = 32
     
     override func didMoveToView(view: SKView) {
-        self.scene!.backgroundColor = UIColor(red: 234.0/255.0, green: 183.0/255.0, blue: 233.0/255.0, alpha: 1.0)
         
-        self.titleLabel = SKLabelNode(fontNamed: "Zapfino")
-        self.newGameLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
-        self.throwShadeLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
+        let background = SKSpriteNode(imageNamed: "shadeGameMain")
+        background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        background.size = self.frame.size
+        background.blendMode = .Replace
+        background.zPosition = -1
+        addChild(background)
         
-        self.titleLabel!.fontSize = 42
-        self.newGameLabel!.fontSize = 22
-        self.throwShadeLabel!.fontSize = 22
+        let menuPlacementNode = SKNode()
+        self.addChild(menuPlacementNode)
         
-        self.titleLabel!.fontColor = UIColor.purpleColor()
-        self.newGameLabel!.fontColor = UIColor.purpleColor()
-        self.throwShadeLabel!.fontColor = UIColor.purpleColor()
+        self.hideAdsLabel = SKLabelNode(fontNamed: menuFontString)
+        self.hideAdsLabel!.fontSize = menuFontSize
+        self.hideAdsLabel!.fontColor = SKColor(hexString: menuFontColorString)
+        self.hideAdsLabel!.text = "Remove Ads"
+        self.hideAdsLabel!.name = "hideAds"
+        self.hideAdsLabel!.position = CGPointMake(menuPlacementNode.frame.width/2, 0)
+        if !NSUserDefaults.standardUserDefaults().boolForKey("purchased") {
+            menuPlacementNode.addChild(hideAdsLabel!)
+        }
         
-        self.titleLabel!.text = "Shade Game"
-        self.newGameLabel!.text = "Play the game"
-        self.throwShadeLabel!.text = "Throw some shade"
-        
-        self.titleLabel!.name = "title"
-        self.newGameLabel!.name = "new"
+        self.throwShadeLabel = SKLabelNode(fontNamed: menuFontString)
+        self.throwShadeLabel!.fontSize = menuFontSize
+        self.throwShadeLabel!.fontColor = SKColor(hexString: menuFontColorString)
         self.throwShadeLabel!.name = "shade"
+        self.throwShadeLabel!.text = "The Button"
+        self.throwShadeLabel!.position = CGPointMake(menuPlacementNode.frame.width/2, hideAdsLabel!.frame.height * 2)
+        menuPlacementNode.addChild(throwShadeLabel!)
         
-        self.titleLabel!.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMidY(self.scene!.frame))
-        self.newGameLabel!.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMidY(self.scene!.frame) - 1.5 * titleLabel!.frame.height)
-        self.throwShadeLabel!.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMidY(self.scene!.frame) - 1.5 * titleLabel!.frame.height - 2.5 * newGameLabel!.frame.height )
-        
-        
-        self.addChild(self.titleLabel!)
-        self.addChild(self.newGameLabel!)
-        self.addChild(self.throwShadeLabel!)
-        
+        self.newGameLabel = SKLabelNode(fontNamed: menuFontString)
+        self.newGameLabel!.fontSize = menuFontSize
+        self.newGameLabel!.fontColor = SKColor(hexString: menuFontColorString)
+        self.newGameLabel!.name = "new"
+        self.newGameLabel!.text = "Play Game"
+        self.newGameLabel!.position = CGPointMake(menuPlacementNode.frame.width/2, hideAdsLabel!.frame.height * 2 + throwShadeLabel!.frame.height * 2)
+        menuPlacementNode.addChild(newGameLabel!)
+        menuPlacementNode.position = CGPointMake(size.width * 0.5, 75)
         
         shadeScene.size = self.view!.bounds.size
         shadeScene.scaleMode = .AspectFill
@@ -67,6 +77,9 @@ class MenuScene: SKScene {
                 presentLevelSelectScene()
             } else if nodeAtTouch.name == "shade" {
                 presentShadeScene()
+            } else if nodeAtTouch.name == "hideAds" {
+                let controller = self.view?.window?.rootViewController as! GameViewController
+                controller.hideAds(self)
             }
         }
     }
@@ -77,7 +90,7 @@ class MenuScene: SKScene {
     }
     
     func presentShadeScene() {
-        let transition = SKTransition.fadeWithColor(UIColor.purpleColor(), duration: 0.6)
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.6)
         self.view?.presentScene(shadeScene, transition: transition)
     }
 }

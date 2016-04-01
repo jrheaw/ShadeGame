@@ -10,14 +10,19 @@ import SpriteKit
 
 class LevelSelectScene: SKScene {
     
-    var menuLabel: SKLabelNode?
+    var menuLabel: SKSpriteNode?
     var muteButton: SKSpriteNode?
     var gameScene = GameScene()
     var hightestLevelUnlocked = 0
     weak var menuScene: MenuScene?
     
+    let fontString = "Futura-CondensedMedium"
+    let fontColorString = "#FFC0E4FF"
+    
+    let backgroundColorString = "#FF007AFF"
+    
     override func didMoveToView(view: SKView) {
-        self.scene!.backgroundColor = SKColor(red: 234.0/255.0, green: 183.0/255.0, blue: 233.0/255.0, alpha: 1.0)
+        self.scene!.backgroundColor = SKColor(hexString: backgroundColorString)!
         createAndPlaceMute()
         
         createAndPlaceGoBackToMenu()
@@ -35,12 +40,9 @@ class LevelSelectScene: SKScene {
         let layoutNode = SKNode()
         self.addChild(layoutNode)
         
-        //let buttonDisabledTexture = SKTexture(imageNamed: "LevelLocked")
-        //var levelUnlocked = NSUserDefaults.standardUserDefaults().integerForKey(kHighestUnlockedLevelKey)
-        
-        let title = SKLabelNode(fontNamed: "Zapfino")
+        let title = SKLabelNode(fontNamed: fontString)
         title.text = "Select Level"
-        title.fontColor = SKColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+        title.fontColor = SKColor(hexString: fontColorString)
         title.fontSize = 32
         title.position = CGPointMake(size.width * 0.5, size.height - 90)
         self.addChild(title)
@@ -48,21 +50,24 @@ class LevelSelectScene: SKScene {
         
         // Add button for levels
         for i in 0 ..< levelsCount {
-            
-            let levelButton = SKLabelNode(fontNamed: "Marker Felt Wide")
+            let levelButton = SKLabelNode(fontNamed: fontString)
             levelButton.text = "\(i+1)"
             levelButton.name = "\(i+1)"
             levelButton.fontSize = 40
+            levelButton.fontColor = SKColor(hexString: fontColorString)
+            
+            let maxSize = max(levelButton.frame.width, levelButton.frame.height)
+            
+            let levelButtonNode = SKSpriteNode(color: SKColor(hexString:backgroundColorString)!, size: CGSize(width: maxSize, height: maxSize))
+            levelButtonNode.addChild(levelButton)
+            levelButtonNode.name = "\(i+1)"
             
             if(i > hightestLevelUnlocked) {
-                levelButton.fontColor = SKColor(red: 255.0/255.0, green: 222.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                levelButton.fontColor = SKColor(hexString: "#ff80c8ff")
             }
             
-//            let buttonTexture = SKTexture(imageNamed: "Level\(i)")
-//            let levelButton = Button(texture: buttonTexture, color: UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0), size: buttonTexture.size(), disableTexture: buttonDisabledTexture)
-//            levelButton.enabled = i <= levelUnlocked
-            levelButton.position = CGPointMake(CGFloat((i%5 - 1) * 65), CGFloat((-i/5) * 65))
-            layoutNode.addChild(levelButton)
+            levelButtonNode.position = CGPointMake(CGFloat((i%5 - 1) * 65), CGFloat((-i/5) * 65))
+            layoutNode.addChild(levelButtonNode)
         }
         
         let layoutFrame: CGRect = layoutNode.calculateAccumulatedFrame()
@@ -73,24 +78,26 @@ class LevelSelectScene: SKScene {
         if hightestLevelUnlocked >= 10 {
             let randomLayoutNode = SKNode()
             self.addChild(randomLayoutNode)
-            let randomLabel = SKLabelNode(fontNamed: "Zapfino")
+            let randomLabel = SKLabelNode(fontNamed: fontString)
             randomLabel.text = "Random"
-            randomLabel.fontSize = 24
-            randomLabel.fontColor = SKColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-            randomLabel.position = CGPointMake(size.width * 0.5, size.height - (layoutFrame.height + 90 + title.frame.height + randomLabel.frame.height))
+            randomLabel.fontSize = 32
+            randomLabel.fontColor = SKColor(hexString: fontColorString)
+            randomLabel.position = CGPointMake(size.width * 0.5, size.height - (layoutFrame.height + 120 + title.frame.height + randomLabel.frame.height))
             
-            let randomEasy = SKLabelNode(fontNamed: "Marker Felt Wide")
+            let randomEasy = SKLabelNode(fontNamed: fontString)
             randomEasy.text = "Easy"
             randomEasy.name = "100"
-            randomEasy.fontSize = 24
+            randomEasy.fontSize = 40
             randomEasy.position = CGPointMake(0, 0)
+            randomEasy.fontColor = SKColor(hexString: fontColorString)
             //srandomEasy.fontColor = SKColor.blackColor()
             
-            let randomHard = SKLabelNode(fontNamed: "Marker Felt Wide")
+            let randomHard = SKLabelNode(fontNamed: fontString)
             randomHard.text = "Hard"
             randomHard.name = "101"
-            randomHard.fontSize = 24
+            randomHard.fontSize = 40
             randomHard.position = CGPointMake(randomEasy.frame.width + 57, 0)
+            randomHard.fontColor = SKColor(hexString: fontColorString)
         
             
             addChild(randomLabel)
@@ -98,7 +105,7 @@ class LevelSelectScene: SKScene {
             randomLayoutNode.addChild(randomHard)
             
             let randomLayoutFrame: CGRect = randomLayoutNode.calculateAccumulatedFrame()
-            randomLayoutNode.position = CGPointMake(size.width * 0.5 - (randomLayoutFrame.size.width * 0.5) - randomLayoutFrame.origin.x, size.height - (layoutFrame.height + 109 + title.frame.height + randomLabel.frame.height + randomEasy.frame.height))
+            randomLayoutNode.position = CGPointMake(size.width * 0.5 - (randomLayoutFrame.size.width * 0.5) - randomLayoutFrame.origin.x, size.height - (layoutFrame.height + 120 + title.frame.height + randomLabel.frame.height + randomEasy.frame.height))
             
         }
         
@@ -128,12 +135,9 @@ class LevelSelectScene: SKScene {
     }
     
     func createAndPlaceGoBackToMenu() {
-        self.menuLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
-        self.menuLabel!.fontSize = 15
-        self.menuLabel!.fontColor = UIColor.grayColor()
-        self.menuLabel!.text = "⬅︎ Main Menu"
+        self.menuLabel = SKSpriteNode(imageNamed: "arrowLeft")
         self.menuLabel!.name = "back"
-        self.menuLabel!.position = CGPoint(x: CGRectGetMinX(self.scene!.frame) + self.menuLabel!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - self.menuLabel!.frame.height)
+        self.menuLabel!.position = CGPoint(x: CGRectGetMinX(self.scene!.frame) + self.menuLabel!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - self.menuLabel!.frame.height/2)
         addChild(self.menuLabel!)
     }
     
@@ -152,7 +156,6 @@ class LevelSelectScene: SKScene {
     func createAndPlaceMute() {
         let soundOff = NSUserDefaults.standardUserDefaults().boolForKey("soundOff")
         muteButton = soundOff ? SKSpriteNode(imageNamed: "audioOff") : SKSpriteNode(imageNamed: "audioOn")
-        print("sound is off? \(soundOff)")
         muteButton!.name = "mute"
         muteButton!.position = CGPoint(x: CGRectGetMaxX(self.scene!.frame) - muteButton!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - muteButton!.frame.height/2)
         addChild(muteButton!)

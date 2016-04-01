@@ -10,6 +10,11 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    let fontString = "Futura-CondensedMedium"
+    let fontColorString = "#FF007AFF"//"#FFC0E4FF"
+    
+    let backgroundColorString = "#FFC0E4FF"//"#FF007AFF"
+    
     weak var levelSelectScene: LevelSelectScene?
     
     var levelSelectLabel: SKLabelNode?
@@ -34,7 +39,7 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         soundOff = NSUserDefaults.standardUserDefaults().boolForKey("soundOff")
         if !gameStarted {
-            self.scene!.backgroundColor = UIColor(red: 234.0/255.0, green: 183.0/255.0, blue: 233.0/255.0, alpha: 1.0)
+            self.scene!.backgroundColor = SKColor(hexString: backgroundColorString)!
             createAndPlaceGoBackToMenu()
             createAndPlaceLevelLabel()
             createAndPlaceRestartLevel()
@@ -65,10 +70,11 @@ class GameScene: SKScene {
                 }
             }
             
-            score = SKLabelNode(fontNamed: "Marker Felt Wide")
+            score = SKLabelNode(fontNamed: fontString)
+            score?.fontColor = SKColor(hexString: fontColorString)
             score!.fontSize = 28
             score!.text = "\(shadeButtonGame!.numClicks) (\(shadeButtonGame!.clicksToWin))"
-            score?.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMinY(self.scene!.frame) + (score?.frame.height)! * 2.8)
+            score?.position = CGPoint(x: CGRectGetMaxX(self.scene!.frame) - CGFloat(buttonSize), y: CGFloat(initialY - (buttonSize * 5)))
             
             addChild(score!)
         }
@@ -133,10 +139,10 @@ class GameScene: SKScene {
                 NSUserDefaults.standardUserDefaults().setInteger(level, forKey: "HighestLevelWon")
             }
             levelWon = true
-            let youWinLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
+            let youWinLabel = SKLabelNode(fontNamed: fontString)
             youWinLabel.fontSize = 52
-            youWinLabel.fontColor = UIColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-            youWinLabel.text = shadeButtonGame!.beatLevel() ? "YAS!" : "Almost!"
+            youWinLabel.fontColor = SKColor(hexString: fontColorString)
+            youWinLabel.text = shadeButtonGame!.beatLevel() ? "Yas!" : "Almost!"
             youWinLabel.name = "win"
             youWinLabel.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMaxY(self.scene!.frame) + youWinLabel.frame.height)
             youWinLabel.zPosition = 100
@@ -144,9 +150,9 @@ class GameScene: SKScene {
             addChild(youWinLabel)
             
             
-            let nextLevel = SKLabelNode(fontNamed: "Zapfino")
+            let nextLevel = SKLabelNode(fontNamed: fontString)
             nextLevel.fontSize = 19
-            nextLevel.fontColor = UIColor.blackColor()
+            nextLevel.fontColor = SKColor(hexString: fontColorString)
             nextLevel.text = shadeButtonGame!.beatLevel() ? "Touch for Next Level" : "Touch to Retry Level"
             nextLevel.name = "next"
             nextLevel.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMinY(self.scene!.frame) - nextLevel.frame.height)
@@ -155,8 +161,8 @@ class GameScene: SKScene {
             addChild(nextLevel)
             
             let fadeInAction = SKAction.fadeAlphaTo(1, duration: 1)
-            let bringDownActionYouWin = SKAction.moveToY(CGRectGetMidY(self.scene!.frame), duration: 1)
-            let bringUpActionNextLevel = SKAction.moveToY(CGRectGetMinY(self.scene!.frame) + nextLevel.frame.height, duration: 1)
+            let bringDownActionYouWin = SKAction.moveToY(levelLabel.position.y - youWinLabel.frame.height * 2 - 8, duration: 1)
+            let bringUpActionNextLevel = SKAction.moveToY(CGRectGetMinY(self.scene!.frame) + nextLevel.frame.height + 60, duration: 1)
             nextLevel.runAction(SKAction.group([fadeInAction, bringUpActionNextLevel]))
             youWinLabel.runAction(SKAction.group([fadeInAction, bringDownActionYouWin]))
             if(!soundOff) {
@@ -168,27 +174,27 @@ class GameScene: SKScene {
     }
     
     func createAndPlaceGoBackToMenu() {
-        self.levelLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
-        self.levelLabel!.fontSize = 15
-        self.levelLabel!.fontColor = UIColor.grayColor()
-        self.levelLabel!.text = "⬅︎ Level Select"
+        self.levelLabel = SKLabelNode(fontNamed: fontString)
+        self.levelLabel!.fontSize = 23
+        self.levelLabel!.fontColor = SKColor(hexString: fontColorString)
+        self.levelLabel!.text = "Level Select"
         self.levelLabel!.name = "back"
         self.levelLabel!.position = CGPoint(x: CGRectGetMinX(self.scene!.frame) + self.levelLabel!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - self.levelLabel!.frame.height)
         addChild(self.levelLabel!)
     }
     
     func createAndPlaceRestartLevel() {
-        self.levelLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
-        self.levelLabel!.fontSize = 15
-        self.levelLabel!.fontColor = UIColor.grayColor()
-        self.levelLabel!.text = "Restart Level"
+        self.levelLabel = SKLabelNode(fontNamed: fontString)
+        self.levelLabel!.fontSize = 23
+        self.levelLabel!.fontColor = SKColor(hexString: fontColorString)
+        self.levelLabel!.text = "Restart"
         self.levelLabel!.name = "restart"
         self.levelLabel!.position = CGPoint(x: CGRectGetMaxX(self.scene!.frame) - self.levelLabel!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - self.levelLabel!.frame.height)
         addChild(self.levelLabel!)
     }
     
     func createAndPlaceLevelLabel() {
-        levelLabel = SKLabelNode(fontNamed: "Zapfino")
+        levelLabel = SKLabelNode(fontNamed: fontString)
         var levelText = "\(level)"
         if(level <= 1) {
             levelText = "Basic"
@@ -196,8 +202,8 @@ class GameScene: SKScene {
             levelText = "So Random"
         }
         levelLabel.text = "Level: " + levelText
-        levelLabel.fontSize = 19
-        levelLabel.fontColor = UIColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+        levelLabel.fontSize = 36
+        levelLabel.fontColor = SKColor(hexString: fontColorString)
         levelLabel.position = CGPoint(x: CGRectGetMaxX(self.scene!.frame)/2, y: CGRectGetMaxY(self.scene!.frame) - levelLabel.frame.height * 2)
         addChild(levelLabel)
     }
@@ -205,7 +211,7 @@ class GameScene: SKScene {
     
     
     func presentMenuScene() {
-        let transition = SKTransition.fadeWithColor(UIColor.purpleColor(), duration: 0.6)
+        let transition = SKTransition.fadeWithColor(SKColor(hexString: backgroundColorString)!, duration: 0.6)
         if let scene = levelSelectScene {
             self.view?.presentScene(scene, transition: transition)
         } else {
@@ -242,21 +248,19 @@ class GameScene: SKScene {
         howToNode!.zPosition = 200
         
         
-        title = SKLabelNode(fontNamed: "Marker Felt Wide")
+        title = SKLabelNode(fontNamed: fontString)
         title!.text = "How To Play"
-        title!.fontColor = SKColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+        title!.fontColor = SKColor(hexString: backgroundColorString)
         title!.fontSize = 24
         title!.position = CGPoint(x: CGRectGetMidX(howToNode!.frame), y: CGRectGetMaxY(howToNode!.frame) - title!.frame.height * 1.8)
-        print(title!.position)
         title!.zPosition = 201
         self.addChild(title!)
         
         
         
         info = GameInfoLabel(frame: howToNode!.frame)
-        //info.font = "Zapfino"
-        info!.text = "\nTouch a square to turn off (or \"shade\") the light in all dark gray squares. A square needs to be shaded if it has a darkened border. Touching a yellow/gray square will turn its four adjacent squares gray/yellow. Complete the level in the specified number of touches to move on!"
-        info!.textAlignment = .Center
+        info!.text = "\n・Touch to shade a square's light\n・Touching a square will flip it and its four adjacent squares' color\n・A yellow square needs to be shaded if it has a darkened border\n・Complete the level in the specified number of touches to move on!"
+        info!.textAlignment = .Left
         
         info!.lineBreakMode = .ByWordWrapping
         info!.numberOfLines = 12

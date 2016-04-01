@@ -10,20 +10,34 @@ import SpriteKit
 
 class ShadeButtonScene: SKScene {
 
-    var inCaseOfLabel: SKLabelNode?
-    var shadeLabel: SKLabelNode?
-    var menuLabel: SKLabelNode?
+    var menuLabel: SKSpriteNode?
     
     var shadeButtonCircle: SKShapeNode?
+    
+    var shadeButton: SKSpriteNode?
     
     weak var menuScene: MenuScene?
    
     
     override func didMoveToView(view: SKView) {
-        self.scene!.backgroundColor = UIColor(red: 234.0/255.0, green: 183.0/255.0, blue: 233.0/255.0, alpha: 1.0)
-        createAndPlaceInCaseOfShade()
+        let background = SKSpriteNode(imageNamed: "shadeButtonBackground")
+        background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        background.size = self.frame.size
+        background.blendMode = .Replace
+        background.zPosition = -1
+        addChild(background)
+        
         createAndPlaceGoBackToMenu()
-        drawShadeButtonCircle()
+        
+        shadeButton = SKSpriteNode(imageNamed: "shadebutton")
+        shadeButton?.anchorPoint = CGPointMake(0.5, 0)
+        shadeButton?.position = CGPointMake(frame.midX, 75)
+        shadeButton?.name = "shadeThrown"
+        if shadeButton?.frame.width > self.frame.width {
+            shadeButton?.size = CGSize(width: self.frame.width - 8, height: shadeButton!.frame.height * ((self.frame.width - 8)/shadeButton!.frame.width))
+        }
+        addChild(shadeButton!)
+        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -31,38 +45,30 @@ class ShadeButtonScene: SKScene {
             let touchPoint = touch.locationInNode(self)
             let nodeAtTouch = self.nodeAtPoint(touchPoint)
             if nodeAtTouch.name == "shadeThrown" {
-                animateShadeButtonAndPlaySound(nodeAtTouch, touchPoint: touchPoint)
+                shadeButton?.texture = SKTexture(imageNamed: "shadebutton_pressed")
             } else if nodeAtTouch.name == "back" {
                 presentMenuScene()
             }
         }
     }
     
-    func createAndPlaceInCaseOfShade() {
-        self.inCaseOfLabel = SKLabelNode(fontNamed: "Zapfino")
-        self.inCaseOfLabel!.fontSize = 19
-        self.inCaseOfLabel!.fontColor = UIColor.blackColor()
-        self.inCaseOfLabel!.text = "IN CASE OF"
-        self.inCaseOfLabel!.name = "incaseof"
-        self.inCaseOfLabel!.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: CGRectGetMaxY(self.scene!.frame) - (3 * self.inCaseOfLabel!.frame.height))
-        addChild(self.inCaseOfLabel!)
-        
-        self.shadeLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
-        self.shadeLabel!.fontSize = 73
-        self.shadeLabel!.fontColor = UIColor(red: 229.0/255.0, green: 64.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-        self.shadeLabel!.text = "SHADE"
-        self.shadeLabel!.name = "shade"
-        self.shadeLabel!.position = CGPoint(x: CGRectGetMidX(self.scene!.frame), y: self.inCaseOfLabel!.position.y - (2 * self.inCaseOfLabel!.frame.height + 10))
-        addChild(self.shadeLabel!)
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        for touch in touches {
+            let touchPoint = touch.locationInNode(self)
+            let nodeAtTouch = self.nodeAtPoint(touchPoint)
+            if nodeAtTouch.name == "shadeThrown" {
+                runAction(SKAction.playSoundFileNamed("shade.mp3", waitForCompletion:false))
+                shadeButton?.texture = SKTexture(imageNamed: "shadebutton")
+            } else if nodeAtTouch.name == "back" {
+                presentMenuScene()
+            }
+        }
     }
     
     func createAndPlaceGoBackToMenu() {
-        self.menuLabel = SKLabelNode(fontNamed: "Marker Felt Wide")
-        self.menuLabel!.fontSize = 15
-        self.menuLabel!.fontColor = UIColor.grayColor()
-        self.menuLabel!.text = "⬅︎ Back it up"
+        self.menuLabel = SKSpriteNode(imageNamed: "arrowLeft")
         self.menuLabel!.name = "back"
-        self.menuLabel!.position = CGPoint(x: CGRectGetMinX(self.scene!.frame) + self.menuLabel!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - self.menuLabel!.frame.height)
+        self.menuLabel!.position = CGPoint(x: CGRectGetMinX(self.scene!.frame) + self.menuLabel!.frame.width/1.8, y: CGRectGetMaxY(self.scene!.frame) - self.menuLabel!.frame.height/2)
         addChild(self.menuLabel!)
     }
     
