@@ -21,7 +21,6 @@ class GameViewController: UIViewController, ADBannerViewDelegate, SKProductsRequ
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        defaults.setBool(true , forKey: "purchased")
         product_id = "com.wittenauer.removeads"
         SKPaymentQueue.defaultQueue().addTransactionObserver(self)
 
@@ -138,7 +137,13 @@ class GameViewController: UIViewController, ADBannerViewDelegate, SKProductsRequ
                     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
                     self.canDisplayBannerAds = false
                     defaults.setBool(true , forKey: "purchased")
-                    
+                    if let scene = MenuScene(fileNamed:"MenuScene") {
+                        let skView = self.view as! SKView
+                        skView.ignoresSiblingOrder = true
+                        scene.size = skView.bounds.size
+                        scene.scaleMode = .AspectFill
+                        skView.presentScene(scene)
+                    }
                     break;
                 case .Failed:
                     print("Purchased Failed");
@@ -152,6 +157,13 @@ class GameViewController: UIViewController, ADBannerViewDelegate, SKProductsRequ
                     SKPaymentQueue.defaultQueue().restoreCompletedTransactions() 
                     self.canDisplayBannerAds = false
                     defaults.setBool(true , forKey: "purchased")
+                    if let scene = MenuScene(fileNamed:"MenuScene") {
+                        let skView = self.view as! SKView
+                        skView.ignoresSiblingOrder = true
+                        scene.size = skView.bounds.size
+                        scene.scaleMode = .AspectFill
+                        skView.presentScene(scene)
+                }
                 default:
                     break;
             }
